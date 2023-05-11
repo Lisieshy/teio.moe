@@ -2,6 +2,11 @@ use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
 
+#[server(IncrementCounter, "/api/increment")]
+pub async fn increment_counter() -> Result<String, ServerFnError> {
+    Ok("Incremented counter".to_string())
+}
+
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
@@ -17,7 +22,7 @@ pub fn App(cx: Scope) -> impl IntoView {
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
 
         // sets the document title
-        <Title text="Welcome to Leptos"/>
+        <Title text="Tokai Teio | teio.moe"/>
 
         // content for this welcome page
         <Router>
@@ -37,8 +42,8 @@ fn HomePage(cx: Scope) -> impl IntoView {
 
     view! { cx,
         <main class="my-0 mx-auto max-w-3xl text-center">
-            <h2 class="p-6 text-4xl">"Welcome to Leptos with Tailwind"</h2>
-            <p class="px-10 pb-10 text-left">"Tailwind will scan your Rust files for Tailwind class names and compile them into a CSS file."</p>
+            <h2 class="p-6 text-4xl">"Welcome to teio.moe"</h2>
+            <p class="px-10 pb-10 text-center">"Tokai Tei is blazingly fast, just like this website"</p>
             <button
                 class="bg-amber-600 hover:bg-violet-700 px-5 py-3 text-white rounded-lg"
                 on:click=move |_| set_count.update(|count| *count += 1)
@@ -50,6 +55,15 @@ fn HomePage(cx: Scope) -> impl IntoView {
                     count().to_string()
                 }}
                 " | Some more text"
+            </button>
+            <button
+                class="bg-amber-600 hover:bg-violet-700 px-5 py-3 text-white rounded-lg"
+                on:click=move |_| {
+                    spawn_local(async {
+                        let _ = increment_counter().await;
+                    });
+                }>
+                "Increment counter"
             </button>
         </main>
     }
