@@ -1,25 +1,21 @@
-pub mod app;
 use cfg_if::cfg_if;
+pub mod counters;
 
+// Needs to be in lib.rs AFAIK because wasm-bindgen needs us to be compiling a lib. I may be wrong.
 cfg_if! {
-if #[cfg(feature = "hydrate")] {
+    if #[cfg(feature = "hydrate")] {
+        use leptos::*;
+        use wasm_bindgen::prelude::wasm_bindgen;
+        use crate::counters::*;
 
-  use wasm_bindgen::prelude::wasm_bindgen;
+        #[wasm_bindgen]
+        pub fn hydrate() {
+            _ = console_log::init_with_level(log::Level::Debug);
+            console_error_panic_hook::set_once();
 
-    #[wasm_bindgen]
-    pub fn hydrate() {
-      use app::*;
-      use leptos::*;
-
-      // initializes logging using the `log` crate
-      _ = console_log::init_with_level(log::Level::Debug);
-      console_error_panic_hook::set_once();
-
-      log!("hydrate mode - hydrating");
-
-      leptos::mount_to_body(move |cx| {
-          view! { cx, <App/> }
-      });
+            mount_to_body(|cx| {
+                view! { cx,  <Counters/> }
+            });
+        }
     }
-}
 }

@@ -2,11 +2,6 @@ use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
 
-#[server(IncrementCounter, "/api/increment")]
-pub async fn increment_counter() -> Result<String, ServerFnError> {
-    Ok("Incremented counter".to_string())
-}
-
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
@@ -55,15 +50,6 @@ fn HomePage(cx: Scope) -> impl IntoView {
                     count().to_string()
                 }}
                 " | Some more text"
-            </button>
-            <button
-                class="bg-amber-600 hover:bg-violet-700 px-5 py-3 text-white rounded-lg"
-                on:click=move |_| {
-                    spawn_local(async {
-                        let _ = increment_counter().await;
-                    });
-                }>
-                "Increment counter"
             </button>
         </main>
     }
