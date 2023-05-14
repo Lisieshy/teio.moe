@@ -11,10 +11,10 @@ cfg_if! {
         use crate::counters::*;
         use leptos_actix::{generate_route_list, LeptosRoutes};
 
-        #[get("/style.css")]
-        async fn css() -> impl Responder {
-            actix_files::NamedFile::open_async("./style/output.css").await
-        }
+        // #[get("/style.css")]
+        // async fn css() -> impl Responder {
+        //     actix_files::NamedFile::open_async("./style/generated.css").await
+        // }
 
         #[get("/api/events")]
         async fn counter_events() -> impl Responder {
