@@ -1,6 +1,8 @@
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
+use crate::counters::*;
+use crate::gallery::*;
 
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
@@ -23,7 +25,7 @@ pub fn App(cx: Scope) -> impl IntoView {
         <Router>
             <main>
                 <Routes>
-                    <Route path="" view=|cx| view! { cx, <HomePage/> }/>
+                    <Route path="" view=|cx| view! { cx, <HomePage/> } />
                 </Routes>
             </main>
         </Router>
@@ -33,24 +35,15 @@ pub fn App(cx: Scope) -> impl IntoView {
 /// Renders the home page of your application.
 #[component]
 fn HomePage(cx: Scope) -> impl IntoView {
-    let (count, set_count) = create_signal(cx, 0);
-
     view! { cx,
-        <main class="my-0 mx-auto max-w-3xl text-center">
-            <h2 class="p-6 text-4xl">"Welcome to teio.moe"</h2>
-            <p class="px-10 pb-10 text-center">"Tokai Tei is blazingly fast, just like this website"</p>
-            <button
-                class="bg-amber-600 hover:bg-violet-700 px-5 py-3 text-white rounded-lg"
-                on:click=move |_| set_count.update(|count| *count += 1)
-            >
-                "Something's here | "
-                {move || if count() == 0 {
-                    "Click me!".to_string()
-                } else {
-                    count().to_string()
-                }}
-                " | Some more text"
-            </button>
+        <main>
+            <div class="my-0 mx-auto max-w-3xl text-center">
+                <h2 class="p-6 text-4xl">"Welcome to teio.moe"</h2>
+                <p class="px-10 text-center">"Tokai Teio is blazingly fast, just like this website"</p>
+                <Counter />
+                <hr class="py-6 dashed-test" />
+            </div>
+            <Gallery />
         </main>
     }
 }

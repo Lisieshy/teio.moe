@@ -1,10 +1,15 @@
 # Teio.moe
 
-start the mongodb container for database
-`docker compose up -d`
-
-TailwindCSS command to update styles when hot reloading
+TailwindCSS command to update styles on hot reload when developing
 `npx tailwindcss -i style/input.css -o src/styles/output.css --watch`
 
 Run the development server
 `cargo leptos watch`
+
+# create the docker image and running it
+
+build the docker image
+`docker build . -t teiomoe`
+
+run the docker image
+`docker run -p 4200:4200 teiomoe`
