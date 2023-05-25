@@ -21,6 +21,8 @@ pub fn App(cx: Scope) -> impl IntoView {
         // sets the document title
         <Title text="Tokai Teio | teio.moe"/>
 
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
         // content for this welcome page
         <Router>
             <main>

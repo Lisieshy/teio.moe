@@ -1,101 +1,85 @@
 use leptos::*;
-use serde::{Deserialize, Serialize};
-use thiserror::Error;
-
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub struct Images {
-    image: String,
-    link: String,
-    artist: String,
-}
-
-#[derive(Error, Clone, Debug)]
-pub enum FetchError {
-    #[error("Error while loading data.")]
-    Request,
-    #[error("Error while deserializing data from request.")]
-    Json,
-}
-
-async fn fetch_images_data() -> Result<Vec<Images>, FetchError> {
-    let res = reqwasm::http::Request::get(&format!(
-        "/images.json",
-    ))
-    .send()
-    .await
-    .map_err(|_| FetchError::Request)?
-    .json::<Vec<Images>>()
-    .await
-    .map_err(|_| FetchError::Json)?
-    .into_iter()
-    .collect::<Vec<_>>();
-    // log!("res: {:?}", res);
-    Ok(res)
-}
 
 #[component]
 pub fn Gallery(cx: Scope) -> impl IntoView {
 
-    let images = create_local_resource(
-        cx,
-        || (),
-        |_| async move { fetch_images_data().await }
-    );
-
-
-    let images_view = move || {
-        images.read(cx).map(|data| {
-            data.map(|data| {
-                data.iter()
-                    .map(|item| view! { cx,
-                        <div class="h-min w-full">
-                            // <p>{item.artist.clone()}</p>
-                            <img class="object-cover rounded-lg" src=item.image.clone() />
-                        </div>
-                    })
-                    .collect_view(cx)
-            })
-        })
-    };
-
     view! { cx,
         <h2 class="text-3xl text-center">"Images"</h2>
-        <div class="sm:columns-1 md:columns-2 lg:columns-3 xl:columns-4 2xl:columns-5 gap-4 space-y-4 p-8">
-        <ErrorBoundary
-            fallback=move |cx, errors| view! { cx,
-                <div>
-                    <h1>"Something went wrong"</h1>
-                    <ul>
-                        {move || errors.get()
-                            .into_iter()
-                            .map(|(_, e)| view! { cx, <li>{e.to_string()}</li> })
-                            .collect_view(cx)
+
+        <div class="grid-msnry"></div>
+
+        <script>
+            {r#"
+                var elem = document.querySelector('.grid-msnry');
+                var msnry;
+
+                function load_images() {
+                    var req = new XMLHttpRequest();
+                    req.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var data = JSON.parse(this.responseText);
+
+                            // randomly sorts data array to show images in random order
+                            data.sort(() => Math.random() - 0.5);
+
+                            var contentWidth = window.innerWidth * 0.8
+                            var placeholderWidth = 0
+    
+                            if (window.innerWidth <= 500) {
+                                placeholderWidth = contentWidth - 10;
+                            } else if (window.innerWidth <= 854) {
+                                placeholderWidth = contentWidth * 0.5 - 10;
+                            } else if (window.innerWidth <= 1280) {
+                                placeholderWidth = contentWidth / 3 - 10;
+                            } else if (window.innerWidth <= 1920) {
+                                placeholderWidth = contentWidth * 0.25 - 10;
+                            } else if (window.innerWidth <= 2240) {
+                                placeholderWidth = contentWidth * 0.2 - 10;
+                            } else {
+                                placeholderWidth = contentWidth / 6 - 10;
+                            }
+
+                            for (const image of data) {
+                                var img_container = document.createElement('div');
+                                img_container.classList.add('grid-item');
+
+                                img_container.classList.add('overflow-hidden');
+                                img_container.classList.add('rounded-lg');
+                
+                                var img_link = document.createElement('a');
+                                img_link.href = image.image_link;
+                                img_link.target = '_blank';
+
+                                var img = document.createElement('img');
+                                img.classList.add('object-cover');
+                                img.src = image.image_source;
+                                img.loading = 'lazy';
+                                img.width = placeholderWidth;
+                                img.height = placeholderWidth;
+                                img.classList.add('custom-img');
+                                img.addEventListener("load", function() {
+                                    msnry.layout();
+                                });
+
+                                img_container.appendChild(img_link);
+                                img_link.appendChild(img);
+
+                                elem.appendChild(img_container);
+                            }
+
+                            msnry = new Masonry( elem, {
+                                itemSelector: '.grid-item',
+                                percentPosition: true
+                            });
                         }
-                    </ul>
-                </div>
-            }
-        >
-            <Transition fallback=move || {
-                view! { cx, <div>"Loading..."</div> }
-            }>
-                {images_view}
-            </Transition>
-        </ErrorBoundary>
-            // <div class="h-min w-full">
-            //     <img class="object-cover rounded-lg" src="94445214_p0.jpg" />
-            // </div>
-            // <div class="h-min w-full">
-            //     <img class="object-cover rounded-lg" src="94445214_p0.jpg" />
-            // </div>
-            // <div class="h-min w-full">
-            //     <img class="object-cover rounded-lg" src="94445214_p0.jpg" />
-            // </div>
-            // <div class="h-min w-full">
-            //     <img class="object-cover rounded-lg" src="94445214_p0.jpg" />
-            // </div>
-            // <div class="h-min w-full">
-            //     <img class="object-cover rounded-lg" src="94445214_p0.jpg" />
-            // </div>
-        </div>
+                    };
+                    req.open("GET", "/images.json");
+                    req.send();
+                }
+
+                window.onload = load_images();
+            "#}
+        </script>
+
     }
 }

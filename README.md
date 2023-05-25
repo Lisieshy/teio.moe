@@ -6,7 +6,7 @@ TailwindCSS command to update styles on hot reload when developing
 Run the development server
 `cargo leptos watch`
 
-# create the docker image and running it
+# creating the docker image and running it
 
 build the docker image
 `docker build . -t teiomoe`
