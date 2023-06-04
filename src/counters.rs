@@ -76,6 +76,8 @@ pub fn Counter(cx: Scope) -> impl IntoView {
             </p>
             <span class="text-2xl font-bold text-blue-500">
                 {move ||
+                    // It's 4am when I'm writing this and honestly, I have no idea either.
+                    // I just know that it works.
                     multiplayer_value.get().unwrap_or_default().to_string().as_bytes().rchunks(3).rev().map(std::str::from_utf8).collect::<Result<Vec<&str>, _>>().unwrap().join(",")
                 }
             </span>
