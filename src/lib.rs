@@ -1,6 +1,7 @@
 use cfg_if::cfg_if;
 pub mod app;
 pub mod counters;
+pub mod footer;
 pub mod gallery;
 
 // Needs to be in lib.rs AFAIK because wasm-bindgen needs us to be compiling a lib. I may be wrong.

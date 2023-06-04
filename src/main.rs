@@ -2,6 +2,7 @@ use cfg_if::cfg_if;
 mod counters;
 mod app;
 mod gallery;
+mod footer;
 
 // boilerplate to run in different modes
 cfg_if! {

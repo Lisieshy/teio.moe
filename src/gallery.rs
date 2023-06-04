@@ -4,7 +4,7 @@ use leptos::*;
 pub fn Gallery(cx: Scope) -> impl IntoView {
 
     view! { cx,
-        <h2 class="text-3xl text-center">"Images"</h2>
+        <h2 class="text-3xl pb-6 text-center">"Tokai Teio Picture Gallery"</h2>
 
         <div class="grid-msnry"></div>
 

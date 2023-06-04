@@ -70,16 +70,24 @@ pub fn Counter(cx: Scope) -> impl IntoView {
 
 
     view! { cx,
-        <div class="pb-16 pt-8">
-            <span>
-                "Total headpats: " {move || multiplayer_value.get().unwrap_or_default()}
+        <div class="flex flex-col items-center pb-4">
+            <p class="text-lg">
+                "Tokai Teio has been headpatted"
+            </p>
+            <span class="text-2xl font-bold text-blue-500">
+                {move ||
+                    multiplayer_value.get().unwrap_or_default().to_string().as_bytes().rchunks(3).rev().map(std::str::from_utf8).collect::<Result<Vec<&str>, _>>().unwrap().join(",")
+                }
             </span>
-            <br/>
+            <p class="text-lg pb-4">
+                "times"
+            </p>
+            // <br/>
             <button
-                class="bg-amber-600 hover:bg-violet-700 px-5 py-3 text-white rounded-lg"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
                 on:click=move |_| inc.dispatch(())
             >
-                "headpat"
+                "Headpat!"
             </button>
         </div>
         // </main>
