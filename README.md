@@ -4,7 +4,7 @@ Very much inspired by [tannhauser.moe](https://tannhauser.moe/). It's just that 
 
 This project was made using [Leptos](https://github.com/leptos-rs/leptos) and [TailwindCSS](https://tailwindcss.com/).
 
-The code of the gallery is copied from tannhauser.moe [repository](https://github.com/KawaiiShadowii/tannhauser.moe)'s code with permission.
+The code of the gallery is copied from tannhauser.moe [repository](https://github.com/KawaiiShadowii/tannhauser.moe) with permission.
 
 # How to run website locally for development
 
