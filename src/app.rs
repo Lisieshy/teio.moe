@@ -19,8 +19,24 @@ pub fn App(cx: Scope) -> impl IntoView {
 
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
 
-        // sets the document title
+        // Primary Meta Tags
         <Title text="Tokai Teio | teio.moe"/>
+        <Meta name="title" content="Tokai Teio | teio.moe"/>
+        <Meta name="description" content="The website for Tokai Teio, the best Uma Musume out there."/>
+
+        // Open Graph / Facebook
+        <Meta property="og:type" content="website"/>
+        <Meta property="og:url" content="https://teio.moe/"/>
+        <Meta property="og:title" content="Tokai Teio | teio.moe"/>
+        <Meta property="og:description" content="The website for Tokai Teio, the best Uma Musume out there."/>
+        <Meta property="og:image" content="/meta-cover.webp"/>
+
+        // Twitter
+        <Meta property="twitter:card" content="summary_large_image"/>
+        <Meta property="twitter:url" content="https://teio.moe/"/>
+        <Meta property="twitter:title" content="Tokai Teio | teio.moe"/>
+        <Meta property="twitter:description" content="The website for Tokai Teio, the best Uma Musume out there."/>
+        <Meta property="twitter:image" content="/meta-cover.webp"/>
 
         <Script>
         {r#"

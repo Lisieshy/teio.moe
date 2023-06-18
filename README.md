@@ -1,6 +1,10 @@
 # Teio.moe
 
-Very much inspired by [tannhauser.moe](https://tannhauser.moe/). It's just that I prefer Tokai Teio. So I rewrote it in Rust.
+Very much inspired by [tannhauser.moe](https://tannhauser.moe/). It's just that I prefer Tokai Teio. So I rewrote it in Rust because then I could combine two things I really like!
+
+This project was made using [Leptos](https://github.com/leptos-rs/leptos) and [TailwindCSS](https://tailwindcss.com/).
+
+The code of the gallery is copied from [tannhauser.moe](https://tannhauser.moe/)'s code. If you want me to remove it, please contact me!
 
 # How to run website locally for development
 
