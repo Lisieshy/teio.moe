@@ -1,6 +1,6 @@
 FROM rustlang/rust:nightly AS prereq
 RUN cargo install cargo-chef
-RUN cargo install cargo-leptos
+RUN cargo install --locked cargo-leptos
 # target wasm32-unknown-unknown
 RUN rustup target add wasm32-unknown-unknown
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
