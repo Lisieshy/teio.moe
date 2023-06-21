@@ -1,6 +1,6 @@
 [package]
 name = "teiomoe"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 
 [lib]
@@ -20,7 +20,7 @@ leptos_actix = { version = "0.3", optional = true }
 leptos_router = { version = "0.3", default-features = false }
 log = "0.4"
 simple_logger = "4"
-wasm-bindgen = "0.2"
+wasm-bindgen = "= 0.2.85"
 serde = { version = "1.0.163", features = ["derive"] }
 futures = "0.3.28"
 gloo-net = "0.2.6"
